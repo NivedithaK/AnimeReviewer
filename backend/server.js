@@ -12,8 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 const uri = process.env.ATLAS_URI;
-//mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
-mongoose.connect(process.env.MONGODB_URI || uri);
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
 
 const connection = mongoose.connection;
 connection.once('open', () => {
@@ -27,7 +26,7 @@ app.use('/animes', animesRouter);
 app.use('/users', usersRouter);
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static( '../build' ));
+    app.use(express.static( './build' ));
     app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
     });
