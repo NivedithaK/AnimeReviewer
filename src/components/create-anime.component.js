@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+const PORT = process.env.PORT || 5000;
 
 export default class CreateAnime extends Component {
     constructor(props) {
@@ -24,7 +25,7 @@ export default class CreateAnime extends Component {
 
     componentDidMount() {
         // Runs right before anything appears on page
-        axios.get("http://localhost:5000/users")
+        axios.get(`http://localhost:${PORT}/users`)
             .then(response => {
                 if (response.data.length > 0) {
                     this.setState({
@@ -69,7 +70,7 @@ export default class CreateAnime extends Component {
         }
         console.log(anime);
 
-        axios.post('http://localhost:5000/animes/add', anime)
+        axios.post(`http://localhost:${PORT}/animes/add`, anime)
         .then(res => console.log(res.data));
 
         window.location = '/';

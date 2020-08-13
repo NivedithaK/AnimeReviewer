@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+const PORT = process.env.PORT || 5000;
 
 export default class EditAnime extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ export default class EditAnime extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:5000/animes/'+this.props.match.params.id)
+    axios.get(`http://localhost:${PORT}/animes/`+this.props.match.params.id)
       .then(response => {
         this.setState({
           username: response.data.username,
@@ -36,7 +37,7 @@ export default class EditAnime extends Component {
         console.log(error);
       })
 
-    axios.get('http://localhost:5000/users/')
+    axios.get(`http://localhost:${PORT}/users/`)
       .then(response => {
         if (response.data.length > 0) {
           this.setState({
@@ -86,7 +87,7 @@ export default class EditAnime extends Component {
 
     console.log(anime);
 
-    axios.post('http://localhost:5000/animes/update/' + this.props.match.params.id, anime)
+    axios.post(`http://localhost:${PORT}/animes/update/` + this.props.match.params.id, anime)
       .then(res => console.log(res.data));
 
     window.location = '/';

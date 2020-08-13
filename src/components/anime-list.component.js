@@ -15,6 +15,8 @@ const Anime = props => (
     </tr>
 )
 
+const PORT = process.env.PORT || 5000;
+
 export default class AnimeList extends Component {
     constructor(props) {
         super(props);
@@ -24,7 +26,7 @@ export default class AnimeList extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/animes/')
+        axios.get(`http://localhost:${PORT}/animes/`)
             .then(response => {
                 this.setState({ animes: response.data });
             })
@@ -34,7 +36,7 @@ export default class AnimeList extends Component {
     }
 
     deleteAnime(id) {
-        axios.delete('http://localhost:5000/animes/'+id)
+        axios.delete(`http://localhost:${PORT}/animes/`+id)
             .then(response => {
                 console.log(response.data);
             })
